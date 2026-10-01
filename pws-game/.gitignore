@@ -19,3 +19,7 @@ Thumbs.db
 # Build/export files
 build/
 exports/
+
+
+# gitignore
+.gitignore
