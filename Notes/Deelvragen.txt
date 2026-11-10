@@ -3,6 +3,6 @@ Hoofdvraag:
 Hoe maak je een game
 
 Deelvragen:
-1.
-2.
-3.
+1. Hoe programmeer je een game?
+2. Wat is de beste game engine om een game in te maken?
+3. Hoe maak je een game "leuk"?
