@@ -2,12 +2,22 @@ Hier zetten we alle ideeën neer voor de game die we gaan maken
 
 idea 1: Drained
 Metroidvania waar alles draait om stroom, de character is een dystopisch like robot die leeft op stroom waardoor het hp of ability systeem ook een batterij is. Ik (jasper) beeld me hierbij een beetje een hollow knight type game in maar dan draait alles om stroom ipv soul/silk.
-Main character name: Bolt
 
-    Surge strike (main attack):
-        Basically gewoon een nailslash uit hollow knight,
-        veranderd van slash colour met upgrade level
-        geel > blauw > paars > groen?
+    Main character:
+        De naam van onze protagonist is "Bolt" 
+
+        character visual design: 
+            Een robot die uit hele duidelijke swappable delen bestaat,
+            daar bedoel ik mee dat de robot limbs heeft zoals armen en benen zodat prosthetics daar goed mee kunnen werken.
+            
+            Character moet ook relatief klein zijn. Niet absurd klein zoals de knight maar meer zoals hornet ofzo, hierdoor kunnen we
+            nog steeds bossfights en enemies ook een powerful aspect geven met size.
+
+
+        Surge strike (main attack):
+            Basically gewoon een nailslash uit hollow knight,
+            veranderd van slash colour met upgrade level
+            geel > blauw > paars > groen?
 
     Spells:
         abilities die charge gebruiken, charge is beetje zoals soul en obtain je door enemies te hitten.
@@ -53,10 +63,13 @@ Main character name: Bolt
 
         Attack booster (hoe voller de charge meter, hoe sneller je attacked)
 
-
+        Short legs prosthetic (Lagere movement speed maar kortere character dus lowered hitbox)
 
     Enemies:
 
 
         Bosses:
             Duracell bunny (easter egg post game boss. Dropt recharging battery)
+
+    Friendly npcs:
+        de friendly npcs hebben meestal dialouge en kan de player aan relaten of mee connecten, ze kunnen de player wellicht ook helpen en we kunnen ze gebruiken om sterke emotie op te wekken
