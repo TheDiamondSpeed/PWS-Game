@@ -9,7 +9,7 @@ Metroidvania waar alles draait om stroom, de character is een dystopisch like ro
         character visual design: 
             Een robot die uit hele duidelijke swappable delen bestaat,
             daar bedoel ik mee dat de robot limbs heeft zoals armen en benen zodat prosthetics daar goed mee kunnen werken.
-            
+
             Character moet ook relatief klein zijn. Niet absurd klein zoals de knight maar meer zoals hornet ofzo, hierdoor kunnen we
             nog steeds bossfights en enemies ook een powerful aspect geven met size.
 
@@ -28,13 +28,10 @@ Metroidvania waar alles draait om stroom, de character is een dystopisch like ro
         single dmg output:
             thunderbolt (schiet in rechte lijn, doet veel dmg aan single target)
 
-        Defensive ability:
-            shield (super smash bros shield like, drained CHARGE met time used + damage blocked)
-
         Agility:
             Damage dash (sharp dart uit silksong basically)
 
-    Movement abilities:
+    Signature abilities:
         Abilities die je helpen progressen op de metroidvania manier
 
         Dash/sprint (swift step silksong)
@@ -42,6 +39,8 @@ Metroidvania waar alles draait om stroom, de character is een dystopisch like ro
         Magnetic feet (ability om te interacten met magnetic surfaces, + en -)
 
         Power cord (stroomkabel die kan gebruikt worden als grappling hook maar ook om stroom te geleiden voor puzzels enzo)
+
+        shield (super smash bros shield like, drained CHARGE met time used + damage blocked IN WORKING)
 
     Tools:
 
