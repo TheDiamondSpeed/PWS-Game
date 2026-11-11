@@ -2,4 +2,61 @@ Hier zetten we alle ideeën neer voor de game die we gaan maken
 
 idea 1: Drained
 Metroidvania waar alles draait om stroom, de character is een dystopisch like robot die leeft op stroom waardoor het hp of ability systeem ook een batterij is. Ik (jasper) beeld me hierbij een beetje een hollow knight type game in maar dan draait alles om stroom ipv soul/silk.
-Main character name idea: Bolt
+Main character name: Bolt
+
+    Surge strike (main attack):
+        Basically gewoon een nailslash uit hollow knight,
+        veranderd van slash colour met upgrade level
+        geel > blauw > paars > groen?
+
+    Spells:
+        abilities die charge gebruiken, charge is beetje zoals soul en obtain je door enemies te hitten.
+
+        Area control:
+            Quake (breach ult, chip damage aan meerdere enemies)
+
+        single dmg output:
+            thunderbolt (schiet in rechte lijn, doet veel dmg aan single target)
+
+        Defensive ability:
+            shield (super smash bros shield like, drained CHARGE met time used + damage blocked)
+
+        Agility:
+            Damage dash (sharp dart uit silksong basically)
+
+    Movement abilities:
+        Abilities die je helpen progressen op de metroidvania manier
+
+        Dash/sprint (swift step silksong)
+
+        Magnetic feet (ability om te interacten met magnetic surfaces, + en -)
+
+        Power cord (stroomkabel die kan gebruikt worden als grappling hook maar ook om stroom te geleiden voor puzzels enzo)
+
+    Tools:
+
+        Normal tools:
+            Recharging battery (tool die zoals kingsoul langzaam charge geeft, obtainable by defeating Duracell bunny)
+
+            Powerbank (als je over charge limit heen gaat, charged het je powerbank. Kan on command gebruikt worden om saved charge te redeemen)
+
+    Prostethics:
+        Prostethics kan je basically overal vinden, je replaced je body parts met verschillende prosthetics voor minor buffs.
+
+        Thruster prosthetic (leg prosthetics die je een hogere jump geven)
+
+        Music player prosthetic (Hiermee kan je casettes afspelen die een effect geven op enemies ofzo)
+
+        shockwave prosthetic (chest prostethic die een shockwave blast om je heen doet op short distance zodra je low bent en enemies knockbackt en slowed/stunned)
+
+        Sprint booster (hoe voller de charge meter, hoe sneller je sprint)
+
+        Attack booster (hoe voller de charge meter, hoe sneller je attacked)
+
+
+
+    Enemies:
+
+
+        Bosses:
+            Duracell bunny (easter egg post game boss. Dropt recharging battery)
