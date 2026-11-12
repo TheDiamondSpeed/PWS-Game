@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-var health = 3
+var health = 100
 
 func take_damage(amount, from_pos):
 	var start_x = position.x
@@ -17,5 +17,3 @@ func take_damage(amount, from_pos):
 	
 	if health <= 0:
 		queue_free()
-	
-	

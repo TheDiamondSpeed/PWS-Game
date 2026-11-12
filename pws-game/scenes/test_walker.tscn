@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://xsa1hl4n2vu2"]
+
+[ext_resource type="Script" uid="uid://d3rwf4b3u8jul" path="res://scripts/test_walker.gd" id="1_u5rkv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u42g7"]
+size = Vector2(14, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eu0un"]
+size = Vector2(16, 14)
+
+[node name="TestWalker" type="CharacterBody2D" unique_id=1731740280]
+collision_layer = 2
+script = ExtResource("1_u5rkv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1710075270]
+shape = SubResource("RectangleShape2D_u42g7")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=886054431]
+offset_left = -7.0
+offset_top = -6.0
+offset_right = 7.0
+offset_bottom = 6.0
+color = Color(0.8288101, 2.7193873e-06, 5.7756904e-07, 1)
+
+[node name="ContactArea" type="Area2D" parent="." unique_id=289947721]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea" unique_id=1631114179]
+shape = SubResource("RectangleShape2D_eu0un")
+
+[node name="LedgeCheck" type="RayCast2D" parent="." unique_id=1370887824]
+position = Vector2(10, 0)
+target_position = Vector2(0, 14)
+
+[node name="WallCheck" type="RayCast2D" parent="." unique_id=797547328]
+target_position = Vector2(10, 0)

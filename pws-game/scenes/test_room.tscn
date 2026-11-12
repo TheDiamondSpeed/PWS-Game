@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://pfkusndawrmc" path="res://floor_placeholder.png" id="2_4adyp"]
 [ext_resource type="PackedScene" uid="uid://bh4fjjryet1eu" path="res://scenes/room_exit.tscn" id="2_h8avn"]
+[ext_resource type="PackedScene" uid="uid://xsa1hl4n2vu2" path="res://scenes/test_walker.tscn" id="3_h8avn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h8avn"]
 texture = ExtResource("2_4adyp")
@@ -30,3 +31,6 @@ position = Vector2(24, 256)
 [node name="RoomExit" parent="." unique_id=1682579816 instance=ExtResource("2_h8avn")]
 position = Vector2(629, 224)
 target_room = "uid://dqb46bku16g5g"
+
+[node name="TestWalker" parent="." unique_id=1731740280 instance=ExtResource("3_h8avn")]
+position = Vector2(435, 249)
