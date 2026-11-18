@@ -24,6 +24,7 @@ var recoil_velocity = 0.0
 @onready var attack_hitbox = $MainAttackHitbox
 @onready var attack_visual = $MainAttackHitbox/ColorRect
 @onready var sprite = $Sprite2D
+@onready var feet_glow = $FeetGlow
 
 var attack_dir = Vector2.RIGHT
 
@@ -36,7 +37,7 @@ var health = max_health
 var invincible_timer = 0.0
 var hurt_knockback = 0.0
 
-enum State { NORMAL, HURT, DASH }
+enum State { NORMAL, HURT, DASH, MAGNET }
 var state = State.NORMAL
 var hurt_timer = 0.0
 
@@ -49,6 +50,19 @@ var dash_cooldown_timer = 0.0
 var dash_dir = 1
 var can_air_dash = true
 
+const MAGNET_SPEED = 70.0
+const LAUNCH_SPEED = 330.0
+const LAUNCH_DRIFT_DECAY = 120.0
+
+var polarity = 1
+var launch_vx = 0.0
+var magnet_lockout = 0.0
+
+@onready var ray_left = $MagnetLeft
+@onready var ray_right = $MagnetRight
+@onready var ray_up = $MagnetUp
+@onready var ray_down = $MagnetDown
+
 func _ready():
 	add_to_group("player")
 	attack_hitbox.monitoring = false
@@ -56,6 +70,8 @@ func _ready():
 	attack_hitbox.body_entered.connect(_on_attack_hit)
 	GameState.unlock("dash")
 	charge = max_charge
+	GameState.unlock("magnetic_feet")
+	_update_polarity_tint()
 
 func _physics_process(delta):
 	_tick_timers(delta)
@@ -67,6 +83,8 @@ func _physics_process(delta):
 			_hurt_state(delta)
 		State.DASH:
 			_dash_state(delta)
+		State.MAGNET:
+			_magnet_state(delta)
 	
 	_update_flicker(delta)
 
@@ -85,11 +103,18 @@ func _tick_timers(delta):
 	dash_cooldown_timer -= delta
 	if is_on_floor():
 		can_air_dash = true
+	if Input.is_action_just_pressed("switch_polarity"):
+		polarity *= -1
+		_update_polarity_tint()
+	if is_on_floor() and velocity.y >= 0:
+		launch_vx = 0.0
+	magnet_lockout -= delta
 
 func _normal_state(delta):
 	if Input.is_action_just_pressed("dash") and try_dash():
 		return
-	
+	if _try_magnet():
+		return
 	# Gravity
 	if not is_on_floor():
 		velocity += get_gravity() * GRAVITY_MULTIPLIER * delta
@@ -240,3 +265,58 @@ func try_dash():
 	dash_cooldown_timer = DASH_COOLDOWN
 	state = State.DASH
 	return true
+
+func _update_polarity_tint():
+	sprite.modulate = Color(1, 1, 1, sprite.modulate.a)
+	feet_glow.modulate = Color("ff5a52") if polarity > 0 else Color("4d8dff")
+	feet_glow.visible = GameState.has_ability("magnetic_feet")
+
+func _find_attracting_ray():
+	for ray in [ray_left, ray_right, ray_up]:
+		if ray.is_colliding():
+			var surface = ray.get_collider()
+			if surface.is_in_group("magnetic") and surface.polarity != polarity:
+				return ray
+	return null
+
+func _try_magnet():
+	if magnet_lockout > 0:
+		return false
+	if not GameState.has_ability("magnetic_feet"):
+		return false
+	if not Input.is_action_pressed("magnet"):
+		return false
+	if _find_attracting_ray() == null:
+		return false
+	launch_vx = 0.0
+	velocity = Vector2.ZERO
+	state = State.MAGNET
+	return true
+
+func _magnet_state(delta):
+	var ray = _find_attracting_ray()
+	if ray == null or not Input.is_action_pressed("magnet"):
+		state = State.NORMAL
+		return
+		
+	if Input.is_action_just_pressed("jump"):
+		velocity.y = JUMP_VELOCITY if ray != ray_up else 0.0
+		if ray == ray_left:
+			recoil_velocity = 120.0
+		elif ray == ray_right:
+			recoil_velocity	= -120.0
+		magnet_lockout = 0.25
+		state = State.NORMAL
+		return
+	
+	var h = Input.get_axis("move_left", "move_right")
+	var v = Input.get_axis("move_up", "move_down")
+	
+	if ray == ray_up:
+		velocity = Vector2(h * MAGNET_SPEED, 0)
+	else:
+		velocity = Vector2(0, v * MAGNET_SPEED)
+	
+	velocity += ray.target_position.normalized() * 20.0
+	move_and_slide()
+	

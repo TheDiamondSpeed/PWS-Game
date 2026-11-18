@@ -1,7 +1,8 @@
 extends Node
 
 var abilities = {
-	"dash": false
+	"dash": false,
+	"magnetic_feet": false
 }
 
 func has_ability(name: String) -> bool:

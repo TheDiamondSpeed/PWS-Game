@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bh4fjjryet1eu" path="res://scenes/room_exit.tscn" id="2_52skk"]
 [ext_resource type="PackedScene" uid="uid://dy5qs1gws3taq" path="res://scenes/dummy.tscn" id="3_xx3u2"]
 [ext_resource type="PackedScene" uid="uid://b43fiuyj2vpoy" path="res://scenes/arc_drone.tscn" id="4_807du"]
+[ext_resource type="PackedScene" uid="uid://ognf504ksciv" path="res://scenes/magnetic_surface.tscn" id="5_pqgrr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h8avn"]
 texture = ExtResource("1_q8au2")
@@ -39,3 +40,8 @@ position = Vector2(365, 288)
 [node name="ArcDrone" parent="." unique_id=1369884566 instance=ExtResource("4_807du")]
 position = Vector2(297, 199)
 max_health = 10
+
+[node name="MagneticSurface" parent="." unique_id=1271822137 instance=ExtResource("5_pqgrr")]
+position = Vector2(658, 264)
+polarity = -1
+size = Vector2(16, 96)

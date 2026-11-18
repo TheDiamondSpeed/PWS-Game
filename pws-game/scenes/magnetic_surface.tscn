@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://ognf504ksciv"]
+
+[ext_resource type="Script" uid="uid://cv0t3tqp5aik4" path="res://scripts/magnetic_surface.gd" id="1_7e355"]
+
+[node name="MagneticSurface" type="StaticBody2D" unique_id=1271822137]
+collision_layer = 9
+script = ExtResource("1_7e355")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1575216632]
+
+[node name="ColorRect" type="ColorRect" parent="CollisionShape2D" unique_id=115494700]
+offset_right = 40.0
+offset_bottom = 40.0
