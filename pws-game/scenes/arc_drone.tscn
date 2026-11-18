@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://b43fiuyj2vpoy"]
+
+[ext_resource type="Script" uid="uid://bot6ktu8xhotf" path="res://scripts/arc_drone.gd" id="1_3ln1b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u42g7"]
+size = Vector2(12, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eu0un"]
+size = Vector2(14, 14)
+
+[node name="ArcDrone" type="CharacterBody2D" unique_id=1369884566]
+collision_layer = 2
+script = ExtResource("1_3ln1b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1750790318]
+shape = SubResource("RectangleShape2D_u42g7")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1679162148]
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 6.0
+offset_bottom = 6.0
+color = Color(0.613202, 0.00027646302, 0.6131976, 1)
+
+[node name="ContactArea" type="Area2D" parent="." unique_id=288170608]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea" unique_id=739501275]
+shape = SubResource("RectangleShape2D_eu0un")

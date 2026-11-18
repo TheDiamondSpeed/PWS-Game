@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://pfkusndawrmc" path="res://floor_placeholder.png" id="1_q8au2"]
 [ext_resource type="PackedScene" uid="uid://bh4fjjryet1eu" path="res://scenes/room_exit.tscn" id="2_52skk"]
 [ext_resource type="PackedScene" uid="uid://dy5qs1gws3taq" path="res://scenes/dummy.tscn" id="3_xx3u2"]
+[ext_resource type="PackedScene" uid="uid://b43fiuyj2vpoy" path="res://scenes/arc_drone.tscn" id="4_807du"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h8avn"]
 texture = ExtResource("1_q8au2")
@@ -34,3 +35,7 @@ target_room = "uid://ddt3kd8vfw4g0"
 
 [node name="Dummy" parent="." unique_id=100241629 instance=ExtResource("3_xx3u2")]
 position = Vector2(365, 288)
+
+[node name="ArcDrone" parent="." unique_id=1369884566 instance=ExtResource("4_807du")]
+position = Vector2(297, 199)
+max_health = 10

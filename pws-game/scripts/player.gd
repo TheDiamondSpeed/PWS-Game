@@ -27,7 +27,7 @@ var recoil_velocity = 0.0
 
 var attack_dir = Vector2.RIGHT
 
-var max_health = 5
+var max_health = 10
 const INVINCIBLE_TIME = 1.0
 var max_charge = 100.0
 var charge = 0.0
@@ -36,22 +36,63 @@ var health = max_health
 var invincible_timer = 0.0
 var hurt_knockback = 0.0
 
+enum State { NORMAL, HURT, DASH }
+var state = State.NORMAL
+var hurt_timer = 0.0
+
+const DASH_SPEED = 260.0
+const DASH_DURATION = 0.18
+const DASH_COOLDOWN = 0.4
+
+var dash_timer = 0.0
+var dash_cooldown_timer = 0.0
+var dash_dir = 1
+var can_air_dash = true
+
 func _ready():
 	add_to_group("player")
 	attack_hitbox.monitoring = false
 	attack_visual.visible = false
 	attack_hitbox.body_entered.connect(_on_attack_hit)
+	GameState.unlock("dash")
+	charge = max_charge
 
 func _physics_process(delta):
+	_tick_timers(delta)
+	
+	match state:
+		State.NORMAL:
+			_normal_state(delta)
+		State.HURT:
+			_hurt_state(delta)
+		State.DASH:
+			_dash_state(delta)
+	
+	_update_flicker(delta)
+
+func _update_flicker(delta):
+	if invincible_timer > 0:
+		invincible_timer -= delta
+		if int(invincible_timer * 20) % 2 == 0:
+			sprite.modulate.a = 0.3
+		else:
+			sprite.modulate.a = 1.0
+	else:
+		sprite.modulate.a = 1.0
+
+func _tick_timers(delta):
+	attack_cooldown_timer -= delta
+	dash_cooldown_timer -= delta
+	if is_on_floor():
+		can_air_dash = true
+
+func _normal_state(delta):
+	if Input.is_action_just_pressed("dash") and try_dash():
+		return
+	
 	# Gravity
 	if not is_on_floor():
 		velocity += get_gravity() * GRAVITY_MULTIPLIER * delta
-	
-	if invincible_timer > 0:
-		invincible_timer -= delta
-		sprite.visible = int(invincible_timer * 20) % 2 == 0
-	else:
-		sprite.visible = true
 	
 	#Hopelijk coyote time
 	if is_on_floor():
@@ -82,7 +123,6 @@ func _physics_process(delta):
 	if direction != 0:
 		facing = sign(direction)
 	
-	attack_cooldown_timer -= delta
 	if Input.is_action_just_pressed("main_attack") and attack_cooldown_timer <= 0:
 		start_attack()
 		
@@ -92,6 +132,26 @@ func _physics_process(delta):
 			end_attack()
 	
 	move_and_slide()
+
+func _hurt_state(delta):
+	velocity += get_gravity() * delta
+	velocity.x = hurt_knockback
+	hurt_knockback = move_toward(hurt_knockback, 0.0, 500.0 * delta)
+	move_and_slide()
+	
+	hurt_timer -= delta
+	if hurt_timer <= 0:
+		state = State.NORMAL
+
+func _dash_state(delta):
+	velocity.x = dash_dir * DASH_SPEED
+	velocity.y = 0
+	move_and_slide()
+	
+	dash_timer -= delta
+	if dash_timer <= 0:
+		velocity.x = dash_dir * SPEED
+		state = State.NORMAL
 
 func start_attack():
 	if attack_cooldown_timer > 0 or attack_timer >0:
@@ -133,6 +193,8 @@ func _on_attack_hit(body):
 		if attack_dir == Vector2.DOWN:
 			velocity.y = JUMP_VELOCITY * 0.8
 			attack_cooldown_timer = 0.0
+			can_air_dash = true
+			dash_cooldown_timer = 0.0
 		else:
 			recoil()
 		
@@ -150,6 +212,8 @@ func take_damage(amount, from_pos):
 	
 	health -= amount
 	invincible_timer = INVINCIBLE_TIME
+	state = State.HURT
+	hurt_timer = 0.25
 	hurt_knockback	= sign(global_position.x - from_pos.x) * 150.0
 	velocity.y = -150.0
 	hitstop(0.08)
@@ -164,3 +228,21 @@ func die():
 	invincible_timer = 0.0
 	var main = get_tree().current_scene
 	main.call_deferred("change_room", main.current_room.scene_file_path, "Spawn_Left")
+
+func try_dash():
+	if not GameState.has_ability("dash"):
+		return false
+	if dash_cooldown_timer >0:
+		return false
+	if not is_on_floor() and not can_air_dash:
+		return false
+	
+	if not is_on_floor():
+		can_air_dash = false
+	var dir = Input.get_axis("move_left", "move_right")
+	dash_dir = sign(dir) if dir != 0 else facing
+	facing = dash_dir
+	dash_timer = DASH_DURATION
+	dash_cooldown_timer = DASH_COOLDOWN
+	state = State.DASH
+	return true
