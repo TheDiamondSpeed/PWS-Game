@@ -190,13 +190,7 @@ func _on_attack_hit(body):
 		charge = min(charge + 10.0, max_charge)
 		body.take_damage(1, global_position)
 		hitstop()
-		if attack_dir == Vector2.DOWN:
-			velocity.y = JUMP_VELOCITY * 0.8
-			attack_cooldown_timer = 0.0
-			can_air_dash = true
-			dash_cooldown_timer = 0.0
-		else:
-			recoil()
+		recoil()
 		
 func hitstop(duration := 0.05):
 	Engine.time_scale = 0.05
