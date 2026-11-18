@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://4aeqpogujjpl"]
+
+[ext_resource type="Script" uid="uid://8ojnfefyd75w" path="res://scripts/hud.gd" id="1_ahhtf"]
+
+[node name="HUD" type="CanvasLayer" unique_id=885054866]
+script = ExtResource("1_ahhtf")
+
+[node name="Margin" type="MarginContainer" parent="." unique_id=565766721]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="VBox" type="VBoxContainer" parent="Margin" unique_id=527703792]
+layout_mode = 2
+
+[node name="HealthCells" type="HBoxContainer" parent="Margin/VBox" unique_id=901187416]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="ChargeBar" type="ProgressBar" parent="Margin/VBox" unique_id=994343725]
+custom_minimum_size = Vector2(60, 6)
+layout_mode = 2
+show_percentage = false

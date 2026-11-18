@@ -27,10 +27,12 @@ var recoil_velocity = 0.0
 
 var attack_dir = Vector2.RIGHT
 
-const MAX_HEALTH = 5
+var max_health = 5
 const INVINCIBLE_TIME = 1.0
+var max_charge = 100.0
+var charge = 0.0
 
-var health = MAX_HEALTH
+var health = max_health
 var invincible_timer = 0.0
 var hurt_knockback = 0.0
 
@@ -125,6 +127,7 @@ func _on_attack_hit(body):
 		return
 	if body.has_method("take_damage"):
 		hit_targets.append(body)
+		charge = min(charge + 10.0, max_charge)
 		body.take_damage(1, global_position)
 		hitstop()
 		if attack_dir == Vector2.DOWN:
@@ -157,7 +160,7 @@ func take_damage(amount, from_pos):
 
 func die():
 	print("Player died")
-	health = MAX_HEALTH
+	health = max_health
 	invincible_timer = 0.0
 	var main = get_tree().current_scene
 	main.call_deferred("change_room", main.current_room.scene_file_path, "Spawn_Left")
