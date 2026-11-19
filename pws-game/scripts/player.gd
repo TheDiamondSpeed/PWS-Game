@@ -115,6 +115,7 @@ func _normal_state(delta):
 		return
 	if _try_magnet():
 		return
+	_try_launch()
 	# Gravity
 	if not is_on_floor():
 		velocity += get_gravity() * GRAVITY_MULTIPLIER * delta
@@ -141,9 +142,10 @@ func _normal_state(delta):
 
 	# Left/right movement
 	var direction = Input.get_axis("move_left", "move_right")
-	velocity.x = direction * SPEED + recoil_velocity + hurt_knockback
+	velocity.x = direction * SPEED + recoil_velocity + hurt_knockback + launch_vx
 	recoil_velocity = move_toward(recoil_velocity, 0.0, 600.0 * delta)
 	hurt_knockback = move_toward(hurt_knockback, 0.0, 500.0 * delta)
+	launch_vx = move_toward(launch_vx, 0.0, LAUNCH_DRIFT_DECAY * delta)
 	
 	if direction != 0:
 		facing = sign(direction)
@@ -320,3 +322,30 @@ func _magnet_state(delta):
 	velocity += ray.target_position.normalized() * 20.0
 	move_and_slide()
 	
+func _find_repelling_ray():
+	for ray in [ray_left, ray_right, ray_up, ray_down]:
+		if ray.is_colliding():
+			var surface = ray.get_collider()
+			if surface.is_in_group("magnetic") and surface.polarity == polarity:
+				return ray
+	return null
+	
+func _try_launch():
+	if not GameState.has_ability("magnetic_feet"):
+		return
+	if not Input.is_action_just_pressed("magnet"):
+		return
+	var ray = _find_repelling_ray()
+	if ray == null:
+		return
+	var h = Input.get_axis("move_left", "move_right")
+	if ray == ray_down:
+		velocity.y = -LAUNCH_SPEED
+		launch_vx = h * LAUNCH_SPEED * 0.6
+	elif ray == ray_up:
+		velocity.y = LAUNCH_SPEED * 0.6
+	else:
+		var away = 1.0 if ray == ray_left else -1.0
+		launch_vx = away * LAUNCH_SPEED * 0.8
+		velocity.y = -120.0
+	can_air_dash = true

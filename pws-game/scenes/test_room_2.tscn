@@ -44,4 +44,4 @@ max_health = 10
 [node name="MagneticSurface" parent="." unique_id=1271822137 instance=ExtResource("5_pqgrr")]
 position = Vector2(658, 264)
 polarity = -1
-size = Vector2(16, 96)
+size = Vector2(48, 16)
